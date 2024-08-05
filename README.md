@@ -28,7 +28,7 @@ This microservice is implemented using ZeroMQ for messaging and JSON for data fo
 2. Install the required dependencies:
     pip install pyzmq
 
-3. Request Data
+**Request Data**
 To request data from the microservice, you need to send a JSON-encoded dictionary or string value via a ZeroMQ socket.
 
 **Example Call:**
@@ -54,8 +54,8 @@ message = socket.recv()
 converted_data = json.loads(message)
 print("Converted data:", converted_data)
 
-4. Receive Data
-   To receive the converted data from the microservice, listen on the same socket and decode the JSON message.
+**Receive Data**
+To receive the converted data from the microservice, listen on the same socket and decode the JSON message.
 
    **Example:**
 message = socket.recv()
