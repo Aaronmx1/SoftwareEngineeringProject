@@ -16,7 +16,7 @@ This microservice is implemented using ZeroMQ for messaging and JSON for data fo
 ## Prerequisites
 
 - Python 3.x
-- ZeroMQ library (`pyzmq`)
+- ZeroMQ library (`zmq`)
 
 ## Installation
 
