@@ -1,18 +1,63 @@
-# SoftwareEngineeringProject
-Project meant to satisfy Software Engineering course requirement
+# Microservice Project
 
-Clear instructions for how to programmatically REQUEST data from the microservice you implemented. Include an example call.
-  - To request data from the microservice the user must directly call my microservice in order to pass the microservice a
-    dictionary value (example provided) or string value (not shown here), depending on which user is using my microservice.
-    Example call:
-      #To convert temperature values pass dictionary containing temperature values to microservice which are then converted
-      #to a dictionary.
-      dictionary = {{'maxTemperature_0': '41.11', 'minTemperature_0': '30.00', 'maxTemperature_1': '44.44', 'minTemperature_1': '30.56'}
-      socket.send(json.dumps(min_max_dict).encode())
+This project is designed to satisfy the Software Engineering course requirement. The microservice provided converts characters to hexadecimal for authentication key generation and converts Fahrenheit temperatures to Celsius.
 
-Clear instructions for how to programmatically RECEIVE data from the microservice you implemented.
-  - In order to receive converted dictionary data from microservice the user must receive data through the same socket
-    bound and json.load(message) which was received in order to maintain data in dictionary format.
-  #The main program component receiving the dictionary would look like such:
-  message = socket.recv()
-  print("json.loads(message): ", json.loads(message))
+## Overview
+
+This microservice is implemented using ZeroMQ for messaging and JSON for data formatting. It can perform the following conversions:
+1. Characters to hexadecimal.
+2. Fahrenheit temperatures to Celsius.
+
+## Features
+
+- Converts characters to their hexadecimal representation.
+- Converts Fahrenheit temperature values to Celsius.
+
+## Prerequisites
+
+- Python 3.x
+- ZeroMQ library (`pyzmq`)
+
+## Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+
+2. Install the required dependencies:
+    pip install pyzmq
+
+3. Request Data
+To request data from the microservice, you need to send a JSON-encoded dictionary or string value via a ZeroMQ socket.
+
+**Example Call:**
+import zmq
+import json
+
+context = zmq.Context()
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://localhost:5555")
+
+# Example dictionary to convert Fahrenheit to Celsius
+temperature_data = {
+    'maxTemperature_0': '41.11',
+    'minTemperature_0': '30.00',
+    'maxTemperature_1': '44.44',
+    'minTemperature_1': '30.56'
+}
+
+socket.send(json.dumps(temperature_data).encode())
+
+# Receive the converted data
+message = socket.recv()
+converted_data = json.loads(message)
+print("Converted data:", converted_data)
+
+4. Receive Data
+   To receive the converted data from the microservice, listen on the same socket and decode the JSON message.
+
+   **Example:**
+message = socket.recv()
+converted_data = json.loads(message)
+print("Converted data:", converted_data)
